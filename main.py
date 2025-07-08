@@ -75,7 +75,7 @@ def main() -> Optional[Tuple[Dict[str, jnp.ndarray], List[float], List[float]]]:
     parser.add_argument(
         "--episodes-per-update", type=int, default=50, help="Episodes per policy update"
     )
-    parser.add_argument("--lr", type=float, default=0.001, help="Learning rate")
+    parser.add_argument("--lr", type=float, default=0.01, help="Learning rate")
     parser.add_argument("--gamma", type=float, default=0.99, help="Discount factor")
     parser.add_argument(
         "--max-steps", type=int, default=500, help="Maximum steps per episode"
