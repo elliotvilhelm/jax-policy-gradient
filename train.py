@@ -78,22 +78,10 @@ def train_vpg(
         # Convert to array for loss computation
         all_returns = jnp.array(all_returns)
 
-        # Compute loss with configurable features
-        loss, _ = compute_policy_loss(
-            policy_params,
-            policy_forward,
-            states,
-            actions,
-            all_returns,
-            use_baseline=use_baseline,
-            use_entropy=use_entropy,
-            entropy_coef=entropy_coef,
-        )
-
-        # Compute gradients and update parameters
-        grads = jax.grad(
-            lambda p: compute_policy_loss(
-                p,
+        # Define loss function for gradient computation
+        def loss_fn(params):
+            loss, _ = compute_policy_loss(
+                params,
                 policy_forward,
                 states,
                 actions,
@@ -101,8 +89,11 @@ def train_vpg(
                 use_baseline=use_baseline,
                 use_entropy=use_entropy,
                 entropy_coef=entropy_coef,
-            )[0]
-        )(policy_params)
+            )
+            return loss
+
+        # Compute loss and gradients in a single pass
+        loss, grads = jax.value_and_grad(loss_fn)(policy_params)
         updates, opt_state = optimizer.update(grads, opt_state)
         policy_params = optax.apply_updates(policy_params, updates)
 
