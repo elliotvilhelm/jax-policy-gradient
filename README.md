@@ -11,9 +11,9 @@ This implementation demonstrates how various enhancements to vanilla policy grad
 - **Gradient clipping** for stability
 - **Per-episode normalization** for fair comparison
 
-### Training Results
+<!-- ### Training Results
 
-![training results](images/vpg_comparison.png)
+![training results](images/vpg_comparison.png) -->
 
 ### Run
 

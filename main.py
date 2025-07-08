@@ -2,6 +2,7 @@ import jax
 import jax.numpy as jnp
 import gymnasium as gym
 import argparse
+from typing import Dict, List, Tuple, Any, Optional, Union
 from policy import policy_forward
 from train import train_vpg
 from variants import print_variants
@@ -9,19 +10,25 @@ from plot import plot_training_curves
 from compare_variants import run_comparison
 
 
-def evaluate_policy(policy_params, policy_forward, env, num_episodes=5, render=True):
+def evaluate_policy(
+    policy_params: Dict[str, jnp.ndarray],
+    policy_forward: Any,
+    env: gym.Env,
+    num_episodes: int = 5,
+    render: bool = True
+) -> float:
     """
     Evaluate the trained policy with rendering.
     """
-    total_rewards = []
+    total_rewards: List[float] = []
 
     for episode in range(num_episodes):
         print(f"\nEpisode {episode + 1}:")
 
         state, _ = env.reset()
         state = jnp.array(state, dtype=jnp.float32)
-        total_reward = 0
-        step = 0
+        total_reward: float = 0.0
+        step: int = 0
 
         while True:
             if render:
@@ -43,12 +50,12 @@ def evaluate_policy(policy_params, policy_forward, env, num_episodes=5, render=T
         total_rewards.append(total_reward)
         print(f"  Total reward: {total_reward}")
 
-    avg_reward = sum(total_rewards) / len(total_rewards)
+    avg_reward: float = sum(total_rewards) / len(total_rewards)
     print(f"\nAverage reward over {num_episodes} episodes: {avg_reward:.2f}")
     return avg_reward
 
 
-def main():
+def main() -> Optional[Tuple[Dict[str, jnp.ndarray], List[float], List[float]]]:
     parser = argparse.ArgumentParser(
         description="Train VPG on CartPole-v1 with configurable features"
     )
@@ -114,16 +121,16 @@ def main():
     # Handle special modes
     if args.list_variants:
         print_variants()
-        return
+        return None
 
     if args.compare:
         run_comparison(
             episodes=args.episodes, episodes_per_update=args.episodes_per_update
         )
-        return
+        return None
 
     # Convert flags to boolean config
-    config = {
+    config: Dict[str, Union[bool, float]] = {
         "use_baseline": not args.no_baseline,
         "use_entropy": not args.no_entropy,
         "use_gradient_clipping": not args.no_gradient_clipping,
