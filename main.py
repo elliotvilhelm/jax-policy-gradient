@@ -24,8 +24,6 @@ def evaluate_policy(policy_params, policy_forward, env, num_episodes=5, render=T
                 env.render()
 
             logits = policy_forward(policy_params, state)
-            probs = jax.nn.softmax(logits)
-            print(f"Action probs: {probs}")
             action = jax.random.categorical(jax.random.PRNGKey(42), logits)
 
             next_state, reward, terminated, truncated, _ = env.step(int(action))
