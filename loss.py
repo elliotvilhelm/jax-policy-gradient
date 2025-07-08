@@ -27,9 +27,9 @@ def compute_returns(rewards: List[float], gamma: float = 0.99) -> List[float]:
     return returns
 
 
-def compute_policy_loss(policy_params, policy_forward, states, actions, returns, entropy_coef=0.01):
+def compute_policy_loss(policy_params, policy_forward, states, actions, returns, use_baseline=True, use_entropy=True, entropy_coef=0.01):
     """
-    Compute the policy gradient loss using REINFORCE with baseline and entropy regularization.
+    Compute the policy gradient loss using REINFORCE with configurable features.
 
     REINFORCE Policy Gradient Formula:
     ∇_θ J(θ) = E[∇_θ log π_θ(a|s) * (R - b)]
@@ -45,6 +45,8 @@ def compute_policy_loss(policy_params, policy_forward, states, actions, returns,
         states: List of states
         actions: List of actions taken
         returns: List of returns for each timestep
+        use_baseline: Whether to use baseline subtraction
+        use_entropy: Whether to use entropy regularization
         entropy_coef: Entropy regularization coefficient
 
     Returns:
@@ -55,8 +57,11 @@ def compute_policy_loss(policy_params, policy_forward, states, actions, returns,
     total_entropy = 0.0
     log_probs = []
 
-    # Compute baseline (mean return) to reduce variance
-    baseline = jnp.mean(jnp.array(returns))
+    # Compute baseline if enabled
+    if use_baseline:
+        baseline = jnp.mean(jnp.array(returns))
+    else:
+        baseline = 0.0
 
     for state, action, ret in zip(states, actions, returns):
         logits = policy_forward(policy_params, state)
@@ -64,16 +69,22 @@ def compute_policy_loss(policy_params, policy_forward, states, actions, returns,
         log_probs_action = jax.nn.log_softmax(logits)
         log_prob = log_probs_action[action]
 
-        # Compute entropy for regularization
-        probs = jax.nn.softmax(logits)
-        entropy = -jnp.sum(probs * log_probs_action)
+        # Compute entropy for regularization if enabled
+        if use_entropy:
+            probs = jax.nn.softmax(logits)
+            entropy = -jnp.sum(probs * log_probs_action)
+        else:
+            entropy = 0.0
 
         # Use advantage (return - baseline) instead of raw return
         advantage = ret - baseline
         policy_loss = -log_prob * advantage
         
-        # Add entropy regularization to encourage exploration
-        loss = policy_loss - entropy_coef * entropy
+        # Add entropy regularization if enabled
+        if use_entropy:
+            loss = policy_loss - entropy_coef * entropy
+        else:
+            loss = policy_loss
         
         total_loss += loss
         total_entropy += entropy

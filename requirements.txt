@@ -38,3 +38,4 @@ scipy==1.16.0
 setuptools==80.9.0
 toolz==1.0.0
 typing_extensions==4.14.1
+matplotlib

@@ -1,12 +1,40 @@
+### Run
+
+#### Default (Full Enhanced VPG)
+```bash
+python3 main.py
+```
+
+#### VPG (no enhancements)
+```bash
+python3 main.py --no-baseline --no-entropy --no-gradient-clipping --no-per-episode-norm
+```
+
+#### Custom Configurations
+```bash
+# Just baseline subtraction
+python3 main.py --no-entropy --no-gradient-clipping --no-per-episode-norm
+
+# Custom training parameters
+python3 main.py --episodes 2000 --lr 0.0005 --entropy-coef 0.02
+
+# Headless training (no rendering)
+python3 main.py --no-render --no-plot
+
+# Quick test run
+python3 main.py --episodes 200 --episodes-per-update 10 --eval-episodes 1
+```
+
+#### All CLI Options
+```bash
+python3 main.py --help
+```
+
 ### Installation (CUDA Support)
 ```
 pip install -r requirements.txt -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 ```
 
-### Run
-```
-(venv) ➜  jax-vpg git:(master) ✗ python3 main.py
-```
 
 ## VPG Implementation Enhancements
 
