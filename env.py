@@ -5,7 +5,9 @@ from typing import List, Tuple, Dict, Any
 import numpy as np
 
 
-def sample_episode(policy_params, policy_forward, env, max_steps=500, episode_seed=None):
+def sample_episode(
+    policy_params, policy_forward, env, max_steps=500, episode_seed=None
+):
     """
     Sample a single episode using the current policy.
 
@@ -23,7 +25,7 @@ def sample_episode(policy_params, policy_forward, env, max_steps=500, episode_se
     for step in range(max_steps):
         states.append(state)
         logits = policy_forward(policy_params, state)
-        
+
         # Use episode-specific seed to ensure different episodes take different actions
         action_key = jax.random.PRNGKey(episode_seed * 1000 + step)
         action = jax.random.categorical(action_key, logits)

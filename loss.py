@@ -27,7 +27,16 @@ def compute_returns(rewards: List[float], gamma: float = 0.99) -> List[float]:
     return returns
 
 
-def compute_policy_loss(policy_params, policy_forward, states, actions, returns, use_baseline=True, use_entropy=True, entropy_coef=0.01):
+def compute_policy_loss(
+    policy_params,
+    policy_forward,
+    states,
+    actions,
+    returns,
+    use_baseline=True,
+    use_entropy=True,
+    entropy_coef=0.01,
+):
     """
     Compute the policy gradient loss using REINFORCE with configurable features.
 
@@ -79,13 +88,13 @@ def compute_policy_loss(policy_params, policy_forward, states, actions, returns,
         # Use advantage (return - baseline) instead of raw return
         advantage = ret - baseline
         policy_loss = -log_prob * advantage
-        
+
         # Add entropy regularization if enabled
         if use_entropy:
             loss = policy_loss - entropy_coef * entropy
         else:
             loss = policy_loss
-        
+
         total_loss += loss
         total_entropy += entropy
         log_probs.append(log_prob)

@@ -25,6 +25,18 @@ python3 main.py --no-render --no-plot
 python3 main.py --episodes 200 --episodes-per-update 10 --eval-episodes 1
 ```
 
+#### Comparison Mode
+```bash
+# Run comparison of all variants defined in variants.py
+python3 main.py --compare
+
+# Run comparison with custom parameters
+python3 main.py --compare --episodes 1000 --episodes-per-update 20
+
+# List available variants
+python3 main.py --list-variants
+```
+
 #### All CLI Options
 ```bash
 python3 main.py --help
@@ -75,3 +87,24 @@ L(θ) = -log π_θ(a|s) · A_t - β · H(π_θ)
 ```
 
 where H(π_θ) = -Σ_a π_θ(a|s) log π_θ(a|s) is the policy entropy and β = 0.01 is the entropy coefficient.
+
+### Customizing Variants
+
+To add your own variants for comparison, edit `variants.py`:
+
+```python
+# Add custom variants
+CUSTOM_VARIANTS = {
+    "High Entropy": {
+        "use_baseline": True,
+        "use_entropy": True,
+        "use_gradient_clipping": True,
+        "use_per_episode_norm": True,
+        "entropy_coef": 0.05,  # Higher entropy
+        "description": "VPG with high entropy regularization"
+    }
+}
+
+def get_variants():
+    return CUSTOM_VARIANTS  # Override to use your variants
+```
