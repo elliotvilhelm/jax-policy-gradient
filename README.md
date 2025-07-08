@@ -13,7 +13,7 @@ This implementation demonstrates how various enhancements to vanilla policy grad
 
 ### Default Compare
 
-![training results](images/vpg_comparison.png)
+![training result](images/vpg_comparison.png?)
 
 ```
 (venv) ➜  jax-vpg git:(master) ✗ python3 main.py --compare --episodes=2000 --episodes-per-update=10 
