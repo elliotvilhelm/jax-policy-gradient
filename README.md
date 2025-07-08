@@ -11,9 +11,52 @@ This implementation demonstrates how various enhancements to vanilla policy grad
 - **Gradient clipping** for stability
 - **Per-episode normalization** for fair comparison
 
-### Training Results
+### Default Compare
 
 ![training results](images/vpg_comparison.png)
+
+```
+(venv) ➜  jax-vpg git:(master) ✗ python3 main.py --compare --episodes=500 --episodes-per-update=10
+🎯 Starting VPG Variant Comparison...
+Running 4 variants with 500 episodes each
+
+
+🚀 Running VPG (Basic)...
+Description: Basic VPG with no enhancements
+Episode 0-9: Avg Reward: 16.90, Loss: 1074.7069
+Episode 10-19: Avg Reward: 19.30, Loss: 1326.8416
+...
+✅ VPG (Basic) completed successfully
+
+🚀 Running With Baseline...
+Description: VPG with baseline subtraction for variance reduction
+Episode 0-9: Avg Reward: 16.90, Loss: 37.4608
+Episode 10-19: Avg Reward: 19.30, Loss: 17.5480
+...
+✅ With Baseline completed successfully
+
+🚀 Running With Entropy...
+Description: VPG with baseline and entropy regularization
+Episode 0-9: Avg Reward: 19.20, Loss: 60.6202
+Episode 10-19: Avg Reward: 20.40, Loss: 24.0891
+...
+✅ With Entropy completed successfully
+
+🚀 Running Full Enhanced...
+Description: VPG with all enhancements
+Episode 0-9: Avg Reward: 18.70, Loss: 8.0949
+Episode 10-19: Avg Reward: 18.60, Loss: 1.0856
+...
+✅ Full Enhanced completed successfully
+
+📊 Comparison plot saved to images/vpg_comparison.png
+
+📊 Summary:
+  VPG (Basic): Final reward = 177.50
+  With Baseline: Final reward = 388.10
+  With Entropy: Final reward = 389.40
+```
+
 
 ### Run
 

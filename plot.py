@@ -29,9 +29,10 @@ def plot_comparison(results):
     ax.set_ylabel("Average Reward")
     ax.set_title("VPG Variants Comparison: Training Progress")
     ax.legend()
-    ax.grid(True, alpha=0.3)
+    ax.grid(True, alpha=0.8)
 
     plt.tight_layout()
+    plt.grid(True, alpha=0.8)
     plt.savefig("images/vpg_comparison.png", dpi=300, bbox_inches="tight")
     print(f"\n📊 Comparison plot saved to images/vpg_comparison.png")
 
@@ -49,7 +50,7 @@ def plot_training_curves(rewards, losses, save_path="images/training_curves.png"
     ax1.set_xlabel("Episode")
     ax1.set_ylabel("Average Reward")
     ax1.set_title("Training Progress: Average Reward")
-    ax1.grid(True, alpha=0.3)
+    ax1.grid(True, alpha=0.8)
     ax1.legend()
 
     # Plot losses
@@ -57,9 +58,10 @@ def plot_training_curves(rewards, losses, save_path="images/training_curves.png"
     ax2.set_xlabel("Episode")
     ax2.set_ylabel("Loss")
     ax2.set_title("Training Progress: Loss")
-    ax2.grid(True, alpha=0.3)
+    ax2.grid(True, alpha=0.8)
     ax2.legend()
 
     plt.tight_layout()
+    plt.grid(True, alpha=0.8)
     plt.savefig(save_path, dpi=300, bbox_inches="tight")
     print(f"📊 Training curves saved to {save_path}")
