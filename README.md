@@ -16,47 +16,47 @@ This implementation demonstrates how various enhancements to vanilla policy grad
 ![training results](images/vpg_comparison.png)
 
 ```
-(venv) ➜  jax-vpg git:(master) ✗ python3 main.py --compare --episodes=500 --episodes-per-update=10
-🎯 Starting VPG Variant Comparison...
-Running 4 variants with 500 episodes each
+(venv) ➜  jax-vpg git:(master) ✗ python3 main.py --compare --episodes=2000 --episodes-per-update=10 
 
+🎯 Starting VPG Variant Comparison...
+Running 4 variants with 2000 episodes each
 
 🚀 Running VPG (Basic)...
 Description: Basic VPG with no enhancements
-Episode 0-9: Avg Reward: 16.90, Loss: 1074.7069
-Episode 10-19: Avg Reward: 19.30, Loss: 1326.8416
+Episode 0-9: Avg Reward: 17.60, Loss: 1144.4250
+Episode 10-19: Avg Reward: 22.90, Loss: 2510.6296
 ...
 ✅ VPG (Basic) completed successfully
 
 🚀 Running With Baseline...
 Description: VPG with baseline subtraction for variance reduction
-Episode 0-9: Avg Reward: 16.90, Loss: 37.4608
-Episode 10-19: Avg Reward: 19.30, Loss: 17.5480
+Episode 0-9: Avg Reward: 24.20, Loss: 292.3097
+Episode 10-19: Avg Reward: 23.40, Loss: 1.4594
 ...
 ✅ With Baseline completed successfully
 
 🚀 Running With Entropy...
 Description: VPG with baseline and entropy regularization
-Episode 0-9: Avg Reward: 19.20, Loss: 60.6202
-Episode 10-19: Avg Reward: 20.40, Loss: 24.0891
+Episode 0-9: Avg Reward: 18.90, Loss: 66.3463
+Episode 10-19: Avg Reward: 21.50, Loss: -14.5288
 ...
 ✅ With Entropy completed successfully
 
 🚀 Running Full Enhanced...
 Description: VPG with all enhancements
-Episode 0-9: Avg Reward: 18.70, Loss: 8.0949
-Episode 10-19: Avg Reward: 18.60, Loss: 1.0856
+Episode 0-9: Avg Reward: 17.60, Loss: 13.7638
+Episode 10-19: Avg Reward: 17.70, Loss: -0.1446
 ...
 ✅ Full Enhanced completed successfully
 
 📊 Comparison plot saved to images/vpg_comparison.png
 
 📊 Summary:
-  VPG (Basic): Final reward = 177.50
-  With Baseline: Final reward = 388.10
-  With Entropy: Final reward = 389.40
+  VPG (Basic): Final reward = 142.60
+  With Baseline: Final reward = 492.30
+  With Entropy: Final reward = 500.00
+  Full Enhanced: Final reward = 148.10
 ```
-
 
 ### Run
 
