@@ -2,11 +2,9 @@ import jax
 import jax.numpy as jnp
 import gymnasium as gym
 import argparse
-import matplotlib.pyplot as plt
-import numpy as np
 from policy import policy_forward
 from train import train_vpg
-from variants import get_variants, print_variants
+from variants import print_variants
 from plot import plot_training_curves
 from compare_variants import run_comparison
 
@@ -30,8 +28,6 @@ def evaluate_policy(policy_params, policy_forward, env, num_episodes=5, render=T
                 env.render()
 
             logits = policy_forward(policy_params, state)
-            probs = jax.nn.softmax(logits)
-            print(f"Action probs: {probs}")
             action = jax.random.categorical(jax.random.PRNGKey(42), logits)
 
             next_state, reward, terminated, truncated, _ = env.step(int(action))

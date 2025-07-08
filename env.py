@@ -1,8 +1,6 @@
 import jax
 import jax.numpy as jnp
 import gymnasium as gym
-from typing import List, Tuple, Dict, Any
-import numpy as np
 
 
 def sample_episode(

@@ -1,3 +1,20 @@
+# JAX Policy Gradient Implementation
+
+A JAX implementation of policy gradient methods with stability enhancements for CartPole-v1. Features baseline subtraction, entropy regularization, gradient clipping, and per-episode normalization for robust training.
+
+## Summary
+
+This implementation demonstrates how various enhancements to vanilla policy gradient methods improve training stability and performance. The key improvements include:
+
+- **Baseline subtraction** for variance reduction
+- **Entropy regularization** for exploration
+- **Gradient clipping** for stability
+- **Per-episode normalization** for fair comparison
+
+### Training Results
+
+![training results](images/vpg_comparison.png)
+
 ### Run
 
 #### Default (Full Enhanced VPG)
